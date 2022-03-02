@@ -1,21 +1,27 @@
 puts "Creating companies..."
-Company.create(name: "Google", founding_year: 1998)
-Company.create(name: "Facebook", founding_year: 2004)
-Company.create(name: "Dunder Mifflin", founding_year: 2002)
-Company.create(name: "Enron", founding_year: 1995)
 
-puts "Creating devs..."
-Dev.create(name: "Rick")
-Dev.create(name: "Morty")
-Dev.create(name: "Mr. Meseeks")
-Dev.create(name: "Gazorpazop")
+Company.delete_all
+Dev.delete_all
+Freebie.delete_all
 
-puts "Creating freebies..."
+5.times do
+    company = Company.create(
+        name: ["Google", "Facebook", "Dunder Mifflin", "Enron"].sample,
+        founding_year: [1998, 2004, 2002, 1995].sample
+    )
 
-# ***************************************************************
-# * TODO: create freebies! Remember, a freebie belongs to a dev *
-# * and a freebie belongs to a company.                         *
-# ***************************************************************
-# Create freebies Here
+    dev = Dev.create(
+        name: ["Rick", "Morty", "Mr. Meseeks", "Gazorpazop"].sample,
+    )
+
+    3.times do 
+        freebie = Freebie.create(
+            company_id: company.id,
+            dev_id: dev.id,
+            item_name: ["item1", "item2", "item3"].sample,
+            value: [10, 5, 20, 15].sample
+        )
+    end
+end
 
 puts "Seeding done!"
